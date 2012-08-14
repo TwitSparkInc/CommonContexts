@@ -164,6 +164,19 @@ class WebApiContext extends BehatContext
     {
         assertRegExp('/'.preg_quote($text).'/', $this->browser->getLastResponse()->getContent());
     }
+    
+    /**
+     * Checks that response body matches a specific regular expression.
+     *
+     * @param string $regex
+     *
+     * @Then /^(?:the )?response should match "([^"]*)"$/
+     */
+    public function theResponseShouldMatch($match)
+    {
+        assertRegExp('/'.$match.'/', $this->browser->getLastResponse()->getContent());
+    }
+
 
     /**
      * Checks that response body doesn't contains specific text.
