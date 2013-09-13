@@ -192,8 +192,7 @@ class WebApiContext extends BehatContext
 
     /**
      * Checks that response body contains JSON from PyString.
-     * JSON is an object. Objects are unordered. So this method has been refactored to show that. And actually care
-     * about key/value pairs rather than entire elements for multi-dimensionals.
+     *
      * @param PyStringNode $jsonString
      *
      * @Then /^(?:the )?response should contain json:$/
@@ -210,17 +209,8 @@ class WebApiContext extends BehatContext
         }
 
         assertCount(count($etalon), $actual);
-
-        // compare each element of the array to expected and actual
-        foreach ($etalon as $element) {
-            foreach ($element as $key => $value) {
-                $current_key = current(array_keys($etalon));
-                // check to make sure that this key exists in the actual array
-                assertContains($key, array_keys($actual[$current_key]));
-                // check actual values
-                assertEquals($actual[$current_key][$key], $value);
-
-            }
+        foreach ($actual as $needle) {
+            assertContains($needle, $etalon);
         }
     }
 
